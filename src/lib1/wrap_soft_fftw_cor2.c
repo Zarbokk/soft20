@@ -309,12 +309,22 @@ void softFFTWCor2( int bw,
 	}
     }
 
+    //Printing solution to file
+    printf("about to save data\n");
+    FILE *fp;
+    fp = fopen( "/home/tim-linux/Documents/matlabTestEnvironment/registrationFourier/ergWrap.txt", "w" );
+    for( i = 0 ; i < 8*bwOut*bwOut*bwOut ; i ++ )
+        fprintf(fp,"%.16f\n", so3Sig[i][0]);
+    fclose( fp );
+
+
+
   ii = floor( maxloc / (4.*bwOut*bwOut) );
   tmp = maxloc - (ii*4.*bwOut*bwOut);
   jj = floor( tmp / (2.*bwOut) );
   tmp = maxloc - (ii *4*bwOut*bwOut) - jj*(2*bwOut);
   kk = tmp ;
-
+    printf("ii = %d\tjj = %d\tkk = %d\n", ii, jj, kk);
   *alpha = M_PI*jj/((double) bwOut) ;
   *beta =  M_PI*(2*ii+1)/(4.*bwOut) ;
   *gamma = M_PI*kk/((double) bwOut) ;

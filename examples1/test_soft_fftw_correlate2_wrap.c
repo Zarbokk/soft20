@@ -122,13 +122,12 @@ int main ( int argc,
     }
   else
     {
-      for ( i = 0 ; i < 2 * n * n ; i ++ )
-	{
-	  fscanf(fp,"%lf", pattern + i);
-	}
+        for ( i = 0 ; i < 2 * n * n ; i ++ )
+        {
+          fscanf(fp,"%lf", pattern + i);
+        }
     }
   fclose( fp );
-
   /* now correlate */
   softFFTWCor2( bw,
 		signal,
