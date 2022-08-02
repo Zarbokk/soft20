@@ -1,4 +1,7 @@
 cmake_minimum_required(VERSION 2.8.3)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_FLAGS_RELEASE "-O3")
+set(CATKIN_ENABLE_TESTING OFF)
 project(soft20)
 
 find_package(catkin REQUIRED COMPONENTS
