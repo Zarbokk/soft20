@@ -1,22 +1,22 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.3)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 set(CATKIN_ENABLE_TESTING OFF)
 project(soft20)
 
-find_package(catkin REQUIRED COMPONENTS
+find_package(ament_cmake REQUIRED)
 
-		)
+#find_package(catkin REQUIRED COMPONENTS)
 
 
-catkin_package(
-		INCLUDE_DIRS include
-		LIBRARIES  soft20
-) #soft20-sym
+#catkin_package(
+#		INCLUDE_DIRS include
+#		LIBRARIES  soft20
+#) #soft20-sym
 
 
 include_directories(
-		${catkin_INCLUDE_DIRS} include
+		 include
 )
 
 ## Declare cpp libraries
@@ -80,17 +80,28 @@ add_library(	soft20
 
 target_link_libraries(soft20 fftw3)
 
-
-
+ament_export_targets(soft20 HAS_LIBRARY_TARGET)
+install(
+		DIRECTORY include/soft20
+		DESTINATION include
+)
+#install(
+#		TARGETS soft20
+#		ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+#		LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+#		RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}
+#)
 install(
 		TARGETS soft20
-		ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-		LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-		RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}
+		EXPORT soft20
+		LIBRARY DESTINATION lib
+		ARCHIVE DESTINATION lib
+		RUNTIME DESTINATION bin
+		INCLUDES DESTINATION include
 )
 
-install(DIRECTORY include/soft20/
-		DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION})
+#install(DIRECTORY include/soft20/
+#		DESTINATION lib/${PROJECT_NAME})
 
 ## Declare cpp executables
 
