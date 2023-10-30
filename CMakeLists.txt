@@ -5,6 +5,7 @@ set(CATKIN_ENABLE_TESTING OFF)
 project(soft20)
 
 find_package(ament_cmake REQUIRED)
+find_package(builtin_interfaces REQUIRED)
 
 #find_package(catkin REQUIRED COMPONENTS)
 
@@ -16,7 +17,8 @@ find_package(ament_cmake REQUIRED)
 
 
 include_directories(
-		 include
+        include/soft20
+        include
 )
 
 ## Declare cpp libraries
@@ -52,53 +54,58 @@ include_directories(
 #)
 
 
-add_library(	soft20
+add_library(soft20
 
-		src/lib1/rotate_so3_fftw.c
-		src/lib1/rotate_so3_utils.c
-		src/lib1/s2_cospmls.c
-		src/lib1/s2_legendreTransforms.c
-		src/lib1/s2_semi_fly.c
-		src/lib1/s2_semi_memo.c
-		src/lib1/so3_correlate_fftw.c
-		src/lib1/soft_fftw.c
-		src/lib1/soft_fftw_nt.c
-		src/lib1/soft_fftw_pc.c
-		src/lib1/utils_vec_cx.c
-		src/lib1/wignerTransforms_fftw.c
-		src/lib1/wrap_s2_rotate_fftw.c
-		src/lib1/wrap_soft_fftw.c
-		src/lib1/wrap_soft_fftw_cor2.c
+        src/lib1/rotate_so3_fftw.c
+        src/lib1/rotate_so3_utils.c
+        src/lib1/s2_cospmls.c
+        src/lib1/s2_legendreTransforms.c
+        src/lib1/s2_semi_fly.c
+        src/lib1/s2_semi_memo.c
+        src/lib1/so3_correlate_fftw.c
+        src/lib1/soft_fftw.c
+        src/lib1/soft_fftw_nt.c
+        src/lib1/soft_fftw_pc.c
+        src/lib1/utils_vec_cx.c
+        src/lib1/wignerTransforms_fftw.c
+        src/lib1/wrap_s2_rotate_fftw.c
+        src/lib1/wrap_soft_fftw.c
+        src/lib1/wrap_soft_fftw_cor2.c
 
-		src/common/csecond.c
-		src/common/makeweights.c
-		src/common/makeWigner.c
-		src/common/s2_primitive.c
-		src/common/utils_so3.c
-		src/common/wignerTransforms.c
-		)
+        src/common/csecond.c
+        src/common/makeweights.c
+        src/common/makeWigner.c
+        src/common/s2_primitive.c
+        src/common/utils_so3.c
+        src/common/wignerTransforms.c
+)
 
 target_link_libraries(soft20 fftw3)
 
-ament_export_targets(soft20 HAS_LIBRARY_TARGET)
+
 install(
-		DIRECTORY include/soft20
-		DESTINATION include
+        DIRECTORY include/soft20
+        DESTINATION include
 )
+
 #install(
 #		TARGETS soft20
 #		ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #		LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #		RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}
 #)
+
 install(
-		TARGETS soft20
-		EXPORT soft20
-		LIBRARY DESTINATION lib
-		ARCHIVE DESTINATION lib
-		RUNTIME DESTINATION bin
-		INCLUDES DESTINATION include
+        TARGETS soft20
+        EXPORT ${PROJECT_NAME}
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib
+        RUNTIME DESTINATION bin
+        INCLUDES DESTINATION include
 )
+
+
+ament_export_targets(${PROJECT_NAME} HAS_LIBRARY_TARGET)
 
 #install(DIRECTORY include/soft20/
 #		DESTINATION lib/${PROJECT_NAME})
@@ -129,32 +136,33 @@ target_link_libraries(test_wigSpec soft20 m)
 #### FFTW dependent executables
 
 add_executable(test_s2_rotate_fftw examples1/test_s2_rotate_fftw.c)
-target_link_libraries(test_s2_rotate_fftw  soft20 m)
+target_link_libraries(test_s2_rotate_fftw soft20 m)
 
 add_executable(test_s2_rotate_fftw_mem examples1/test_s2_rotate_fftw_mem.c)
-target_link_libraries(test_s2_rotate_fftw_mem  soft20 m)
+target_link_libraries(test_s2_rotate_fftw_mem soft20 m)
 
 add_executable(test_s2_rotate_fftw_wrap examples1/test_s2_rotate_fftw_wrap.c)
-target_link_libraries(test_s2_rotate_fftw_wrap  soft20 m)
+target_link_libraries(test_s2_rotate_fftw_wrap soft20 m)
 
 add_executable(test_soft_fftw examples1/test_soft_fftw.c)
-target_link_libraries(test_soft_fftw  soft20 m)
+target_link_libraries(test_soft_fftw soft20 m)
 
 add_executable(test_soft_fftw_correlate2 examples1/test_soft_fftw_correlate2.c)
-target_link_libraries(test_soft_fftw_correlate2  soft20 m)
+target_link_libraries(test_soft_fftw_correlate2 soft20 m)
 
 add_executable(test_soft_fftw_correlate2_wrap examples1/test_soft_fftw_correlate2_wrap.c)
-target_link_libraries(test_soft_fftw_correlate2_wrap  soft20 m)
+target_link_libraries(test_soft_fftw_correlate2_wrap soft20 m)
 
 add_executable(test_soft_fftw_for examples1/test_soft_fftw_for.c)
-target_link_libraries(test_soft_fftw_for  soft20 m)
+target_link_libraries(test_soft_fftw_for soft20 m)
 
 add_executable(test_soft_fftw_inv examples1/test_soft_fftw_inv.c)
-target_link_libraries(test_soft_fftw_inv  soft20 m)
+target_link_libraries(test_soft_fftw_inv soft20 m)
 
 add_executable(test_soft_fftw_nt examples1/test_soft_fftw_nt.c)
-target_link_libraries(test_soft_fftw_nt  soft20 m)
+target_link_libraries(test_soft_fftw_nt soft20 m)
 
 add_executable(test_soft_fftw_pc examples1/test_soft_fftw_pc.c)
-target_link_libraries(test_soft_fftw_pc  soft20 m)
+target_link_libraries(test_soft_fftw_pc soft20 m)
 
+ament_package()
